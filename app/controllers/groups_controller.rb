@@ -2,14 +2,14 @@ class GroupsController < ApplicationController
   before_action :set_group, only: [:edit, :update]
 
     def index
-        @group_lists = Group.all
-        @group_joining = GroupUser.where(user_id: current_user.id)
-        @group_lists_none = "グループに参加していません。"
+        @groups = Group.all
+        @book = Book.new
     end
 
     def new
         @group = Group.new
         @group.users << current_user
+        @user = current_user
     end
 
     def create
@@ -51,7 +51,7 @@ class GroupsController < ApplicationController
         end
 
         def group_params
-            params.require(:group).permit(:name, user_ids: [])
+            params.require(:group).permit(:name, :introduction, :image, :owner_id)
         end
 
 
